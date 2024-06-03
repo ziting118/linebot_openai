@@ -84,7 +84,10 @@ if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
 
-words_dict = {
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    msg = event.message.text
+    questions_answers = {
     "飯": "滷肉飯",
     "麵": "擔仔麵",
     "日式料理": "拉麵",
@@ -96,6 +99,12 @@ words_dict = {
     "豐盛一點": "牛排",
     "簡單吃":"便利商店"
 }
+ if msg in questions_answers:
+        #print(想吃f"{word}的話，推薦：{words_dict[word]}")
+    
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(questions_answers[msg]))
+    else:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(msg))
 
 # 輸入想吃的食物類型
 
