@@ -105,12 +105,3 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(questions_answers[msg]))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(msg))
-
-# 輸入想吃的食物類型
-
-
-Q = input("今天想吃甚麼類型的食物？").lower()
-if Q == 'quit':
-    break
-A=words_dict[Q]
-print("答案:",A )
